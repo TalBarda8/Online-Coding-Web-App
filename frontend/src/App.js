@@ -1,15 +1,17 @@
 import React from 'react';
-import './App.css';
-import Lobby from './components/Lobby';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+import Lobby from './components/Lobby.js';
+import CodeBlock from './components/CodeBlock.js';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Code Block Lobby</h1>
-        <Lobby />
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Lobby />} />
+        <Route path="/code-block/:id" element={<CodeBlock />} />
+      </Routes>
+    </Router>
   );
 }
 
