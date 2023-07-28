@@ -18,35 +18,47 @@ mongoose.connection.once('open', async () => {
         },
         {
             title: 'Addition Function',
-            code: `function add(a, b) {
-                    return a + b;
-                    }
-                    console.log(add(2, 3));`
+            code: [
+                'function add(a, b) {',
+                '    return a + b;',
+                '}',
+                '',
+                'console.log(add(2, 3));'
+            ].join('\n')
         },
         {
             title: 'Greeting Message',
-            code: `function greet(name) {
-                    return "Hello, " + name + "!";
-                    }
-                    console.log(greet('Alice'));`
+            code: [
+                'function greet(name) {',
+                '    return "Hello, " + name + "!";',
+                '}',
+                '',
+                'console.log(greet(\'Alice\'));'
+            ].join('\n')
         },
         {
             title: 'Square Number',
-            code: `function square(n) {
-                    return n * n;
-                    }
-                    console.log(square(4));`
+            code: [
+                'function square(n) {',
+                '    return n * n;',
+                '}',
+                '',
+                'console.log(square(4));'
+            ].join('\n')
         }
     ];
-
+    
     try {
         for(let block of blocks) {
-            let newBlock = new CodeBlock(block);
-            await newBlock.save();
+            await CodeBlock.findOneAndUpdate(
+                { title: block.title },
+                block,
+                { upsert: true, new: true, setDefaultsOnInsert: true }
+            );
         }
-        console.log('Code blocks added.');
+        console.log('Code blocks added or updated.');
         mongoose.connection.close();
     } catch(err) {
-        console.error('Error inserting blocks:', err);
+        console.error('Error inserting/updating blocks:', err);
     }
 });

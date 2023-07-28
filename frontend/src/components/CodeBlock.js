@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import hljs from 'highlight.js';
-import 'highlight.js/styles/github.css';
 import io from 'socket.io-client';
 
-function CodeBlock({ match }) {
+import ace from 'ace-builds';
+import AceEditor from 'react-ace';
+import 'ace-builds/src-noconflict/mode-javascript';
+import 'ace-builds/src-noconflict/theme-monokai';
+
+ace.config.set('basePath', '/static/js');
+
+function CodeBlock() {
     const [codeBlock, setCodeBlock] = useState({});
     const [socket, setSocket] = useState(null);
     const { id } = useParams();
@@ -12,10 +17,7 @@ function CodeBlock({ match }) {
     useEffect(() => {
         fetch(`http://localhost:3000/code-blocks/${id}`)
             .then(response => response.json())
-            .then(data => {
-                setCodeBlock(data);
-                hljs.highlightBlock(document.getElementById('code-display'));
-            })
+            .then(data => setCodeBlock(data))
             .catch(error => console.error("Error fetching code block:", error));
 
         const socketInstance = io('http://localhost:3000');
@@ -29,11 +31,17 @@ function CodeBlock({ match }) {
     return (
         <div>
             <h1>{codeBlock.title}</h1>
-            <pre>
-                <code id="code-display">
-                    {codeBlock.code}
-                </code>
-            </pre>
+            <AceEditor
+                mode="javascript"
+                theme="monokai"
+                value={codeBlock.code}
+                onChange={newCode => {
+                    setCodeBlock({ ...codeBlock, code: newCode });
+                }}
+                name="UNIQUE_ID_OF_DIV"
+                editorProps={{ $blockScrolling: true }}
+                readOnly={false}
+            />
         </div>
     );
 }
