@@ -1,19 +1,21 @@
 const mongoose = require('mongoose');
 
 const codeBlockSchema = new mongoose.Schema({
-    title: {
+    title: String,
+    code: String,
+    currentCode: {
         type: String,
-        required: true
+        default: ''
     },
-    code: {
-        type: String,
-        required: true
-    },
-    solution: {
-        type: String,  // optional for now
-        required: false
-    }
+    users: [{
+        socketId: String,
+        role: {
+            type: String,
+            enum: ['mentor', 'student']
+        }
+    }]
 });
 
 const CodeBlock = mongoose.model('CodeBlock', codeBlockSchema);
+
 module.exports = CodeBlock;
