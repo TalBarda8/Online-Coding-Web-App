@@ -21,7 +21,7 @@ function CodeBlock() {
 
     useEffect(() => {
         // Fetch the specific code block from the server using the ID from the URL params
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/code-blocks/${id}`)
+        fetch(`https://online-coding-web-application-production.up.railway.app/code-blocks/${id}`)
             .then(response => response.json())
             .then(data => {
                 setCodeBlock({
@@ -32,7 +32,7 @@ function CodeBlock() {
             .catch(error => console.error("Error fetching code block:", error));
 
         // Initialize the socket connection
-        const socketInstance = io(`${process.env.REACT_APP_BACKEND_URL}`, {
+        const socketInstance = io(`https://online-coding-web-application-production.up.railway.app`, {
             path: '/socket.io'
         });
 
