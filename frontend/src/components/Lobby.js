@@ -11,7 +11,7 @@ function Lobby() {
 
   useEffect(() => {
     // Fetch the list of code blocks from the server
-    fetch('http://localhost:3000/code-blocks')
+    fetch('https://online-coding-web-application-production.up.railway.app/code-blocks')
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);

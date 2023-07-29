@@ -32,7 +32,7 @@ app.use('/code-blocks', codeBlockRoutes);
 const server = http.createServer(app);
 const io = socketIo(server, {
     cors: {
-      origin: "http://localhost:3001",
+      origin: "https://master--poetic-creponne-6291b7.netlify.app/",
       methods: ["GET", "POST"]
     }
   });

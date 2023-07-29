@@ -32,7 +32,7 @@ function CodeBlock() {
             .catch(error => console.error("Error fetching code block:", error));
 
         // Initialize the socket connection
-        const socketInstance = io('http://localhost:3000', {
+        const socketInstance = io(`${process.env.REACT_APP_BACKEND_URL}`, {
             path: '/socket.io'
         });
 
