@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import io from 'socket.io-client';
 
 import ace from 'ace-builds';
 import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/theme-monokai';
+
+import '../CodeBlockStyle.css';
 
 ace.config.set('basePath', '/static/js');
 
@@ -59,22 +61,27 @@ function CodeBlock() {
     }, [id]);
 
     return (
-        <div>
-            <h1>{codeBlock.title}</h1>
-            <AceEditor
-                mode="javascript"
-                theme="monokai"
-                value={codeBlock.code}
-                onChange={newCode => {
-                    setCodeBlock({ ...codeBlock, code: newCode });
-                    if (role === 'student') {
-                        socket.emit('codeUpdate', { codeBlockId: id, newCode });
-                    }
-                }}
-                name="UNIQUE_ID_OF_DIV"
-                editorProps={{ $blockScrolling: true }}
-                readOnly={role === 'mentor'}
-            />
+        <div className="code-block-page">
+            <div className="code-block-content">
+                <h1 className="code-block-header">{codeBlock.title}</h1>
+                <AceEditor
+                    mode="javascript"
+                    theme="monokai"
+                    value={codeBlock.code}
+                    onChange={newCode => {
+                        setCodeBlock({ ...codeBlock, code: newCode });
+                        if (role === 'student') {
+                            socket.emit('codeUpdate', { codeBlockId: id, newCode });
+                        }
+                    }}
+                    name="UNIQUE_ID_OF_DIV"
+                    editorProps={{ $blockScrolling: true }}
+                    readOnly={role === 'mentor'}
+                />
+                <Link to="/">
+                    <button className="button">Back to Lobby</button>
+                </Link>
+            </div>
         </div>
     );
 }
