@@ -5,7 +5,7 @@ const http = require('http');
 const socketIo = require('socket.io');
 
 const app = express();
-app.use(cors({ origin: 'https://unrivaled-starburst-e93483.netlify.app/' }));
+app.use(cors({ origin: 'https://unrivaled-starburst-e93483.netlify.app' }));
 
 const PORT = process.env.PORT || 3000;
 
@@ -32,7 +32,7 @@ app.use('/code-blocks', codeBlockRoutes);
 const server = http.createServer(app);
 const io = socketIo(server, {
     cors: {
-      origin: "https://unrivaled-starburst-e93483.netlify.app/",
+      origin: "https://unrivaled-starburst-e93483.netlify.app",
       methods: ["GET", "POST"]
     }
 });
