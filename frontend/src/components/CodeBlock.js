@@ -9,15 +9,18 @@ import 'ace-builds/src-noconflict/theme-monokai';
 
 import '../CodeBlockStyle.css';
 
+// Set the base path for Ace Editor to find required static files
 ace.config.set('basePath', '/static/js');
 
 function CodeBlock() {
+    // State declarations
     const [codeBlock, setCodeBlock] = useState({});
     const [socket, setSocket] = useState(null);
     const [role, setRole] = useState(null);
     const { id } = useParams();
 
     useEffect(() => {
+        // Fetch the specific code block from the server using the ID from the URL params
         fetch(`http://localhost:3000/code-blocks/${id}`)
             .then(response => response.json())
             .then(data => {
@@ -27,11 +30,13 @@ function CodeBlock() {
                 });
             })
             .catch(error => console.error("Error fetching code block:", error));
-    
+
+        // Initialize the socket connection
         const socketInstance = io('http://localhost:3000', {
             path: '/socket.io'
         });
 
+        // Handle any connection errors
         socketInstance.on('connect_error', (error) => {
             console.error('Connection Error:', error);
         });
@@ -42,15 +47,16 @@ function CodeBlock() {
             setRole(assignedRole);
         });
 
+        // Listen for any code updates and apply them
         socketInstance.on('receiveCodeUpdate', (updatedCode) => {
             setCodeBlock((prevCodeBlock) => ({
                 ...prevCodeBlock,
                 code: updatedCode
             }));
         });
-    
+
         setSocket(socketInstance);
-    
+
         return () => {
             socketInstance.off('assignRole');
             socketInstance.off('receiveCodeUpdate');
@@ -69,6 +75,7 @@ function CodeBlock() {
                     theme="monokai"
                     value={codeBlock.code}
                     onChange={newCode => {
+                        // Update code block content locally and emit changes if the role is 'student'
                         setCodeBlock({ ...codeBlock, code: newCode });
                         if (role === 'student') {
                             socket.emit('codeUpdate', { codeBlockId: id, newCode });
@@ -78,6 +85,7 @@ function CodeBlock() {
                     editorProps={{ $blockScrolling: true }}
                     readOnly={role === 'mentor'}
                 />
+                {/* Rreturn to the lobby button */}
                 <Link to="/">
                     <button className="button">Back to Lobby</button>
                 </Link>

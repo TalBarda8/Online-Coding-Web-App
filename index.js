@@ -13,6 +13,7 @@ app.get('/', (req, res) => {
     res.send("Hello, World!");
 });
 
+// Connect to MongoDB
 const MONGODB_URI = 'mongodb+srv://TalBarda:J8BqaRq54%23XXshX@cluster0.mnibqg2.mongodb.net/?retryWrites=true&w=majority';
 
 mongoose.connect(MONGODB_URI, {
@@ -27,6 +28,7 @@ mongoose.connection.on('connected', () => {
 const codeBlockRoutes = require('./routes/codeBlockRoutes');
 app.use('/code-blocks', codeBlockRoutes);
 
+// Set up the HTTP server and Socket.io
 const server = http.createServer(app);
 const io = socketIo(server, {
     cors: {
@@ -37,6 +39,7 @@ const io = socketIo(server, {
 
 const CodeBlock = require('./models/codeBlock');
 
+// Set up socket event listeners
 io.on('connection', (socket) => {
     console.log('New client connected');
 

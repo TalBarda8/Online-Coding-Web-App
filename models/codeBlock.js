@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// Defining a schema for the CodeBlock
 const codeBlockSchema = new mongoose.Schema({
     title: String,
     code: String,
@@ -7,7 +8,7 @@ const codeBlockSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
-    users: [{
+    users: [{ // List of users currently associated with the code block
         socketId: String,
         role: {
             type: String,

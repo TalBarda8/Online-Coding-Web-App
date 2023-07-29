@@ -1,3 +1,4 @@
+/* Styling for the lobby area */
 .lobby {
     background: linear-gradient(135deg, #83a4d4, #b6fbff);
     display: flex;
@@ -12,6 +13,7 @@
     padding: 0;
 }
 
+/* Styling individual code block items */
 .code-block-item {
     font-family: 'Lato', sans-serif;
     background-color: #fff;

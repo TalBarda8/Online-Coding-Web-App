@@ -1,3 +1,4 @@
+// Script to clear users from all code blocks
 const mongoose = require('mongoose');
 
 const MONGODB_URI = 'mongodb+srv://TalBarda:J8BqaRq54%23XXshX@cluster0.mnibqg2.mongodb.net/?retryWrites=true&w=majority';

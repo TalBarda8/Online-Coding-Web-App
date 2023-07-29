@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const CodeBlock = require('../models/codeBlock');
 
+// Route to get all code blocks
 router.get('/', async (req, res) => {
     try {
         const codeBlocks = await CodeBlock.find();
@@ -11,6 +12,7 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Route to get a specific code block by its ID
 router.get('/:id', async (req, res) => {
     try {
         const codeBlock = await CodeBlock.findById(req.params.id);

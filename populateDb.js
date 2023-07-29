@@ -3,6 +3,7 @@ const CodeBlock = require('./models/codeBlock');
 
 const MONGODB_URI = 'mongodb+srv://TalBarda:J8BqaRq54%23XXshX@cluster0.mnibqg2.mongodb.net/?retryWrites=true&w=majority';
 
+// Connect to the MongoDB database
 mongoose.connect(MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -11,6 +12,7 @@ mongoose.connect(MONGODB_URI, {
 mongoose.connection.once('open', async () => {
     console.log('Connected to database.');
 
+    // Code blocks array
     const blocks = [
         {
             title: 'Hello World in JavaScript',
