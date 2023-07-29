@@ -5,7 +5,7 @@ const http = require('http');
 const socketIo = require('socket.io');
 
 const app = express();
-app.use(cors());
+app.use(cors({ origin: 'https://poetic-creponne-6291b7.netlify.app/' }));
 
 const PORT = process.env.PORT || 3000;
 

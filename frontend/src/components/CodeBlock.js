@@ -21,7 +21,7 @@ function CodeBlock() {
 
     useEffect(() => {
         // Fetch the specific code block from the server using the ID from the URL params
-        fetch(`http://localhost:3000/code-blocks/${id}`)
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/code-blocks/${id}`)
             .then(response => response.json())
             .then(data => {
                 setCodeBlock({
