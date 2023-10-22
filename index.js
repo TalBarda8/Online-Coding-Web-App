@@ -10,11 +10,10 @@ app.use(cors({ origin: 'https://unrivaled-starburst-e93483.netlify.app' }));
 const PORT = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {
-    res.send("Hello, World!");
 });
 
 // Connect to MongoDB
-const MONGODB_URI = 'mongodb+srv://TalBarda:J8BqaRq54%23XXshX@cluster0.mnibqg2.mongodb.net/?retryWrites=true&w=majority';
+const MONGODB_URI = process.env.MONGODB_URI;
 
 mongoose.connect(MONGODB_URI, {
     useNewUrlParser: true,

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const CodeBlock = require('./models/codeBlock');
 
-const MONGODB_URI = 'mongodb+srv://TalBarda:J8BqaRq54%23XXshX@cluster0.mnibqg2.mongodb.net/?retryWrites=true&w=majority';
+const MONGODB_URI = process.env.MONGODB_URI;
 
 // Connect to the MongoDB database
 mongoose.connect(MONGODB_URI, {
