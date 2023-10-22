@@ -3,6 +3,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const http = require('http');
 const socketIo = require('socket.io');
+require('dotenv').config();
 
 const app = express();
 app.use(cors({ origin: 'https://unrivaled-starburst-e93483.netlify.app' }));
@@ -13,9 +14,9 @@ app.get('/', (req, res) => {
 });
 
 // Connect to MongoDB
-const MONGODB_URI = process.env.MONGODB_URI;
+const URI = process.env.MONGODB_URI;
 
-mongoose.connect(MONGODB_URI, {
+mongoose.connect(URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
